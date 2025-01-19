@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
 
 export default function ProductCard({ product }) {
   // Function to generate stars based on rating
@@ -38,8 +38,14 @@ export default function ProductCard({ product }) {
 
         {renderStars(product.rating)}
       </div>
-      <div className="w-full">
-        <span>{product.price} Rs</span>
+      <div className="w-full flex justify-between pr-8 text-xl">
+        <span>
+          {product.price} Rs
+          <span className="line-through text-[#8a8a8a] px-4">
+            {Math.floor(product.price * 1.2)} Rs
+          </span>
+        </span>
+        <FaCartPlus size={28} color="#8a8a8a" />
       </div>
     </div>
   );

@@ -170,10 +170,10 @@ export default function FeaturedProductSection() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10">
+    <div className="flex flex-col items-center justify-center gap-10 py-20">
       <div className="flex items-center justify-between w-3/4">
         <h3 className="text-4xl font-semibold">
-          What we dsdf <span className="text-gray-400">offer</span>
+          What we <span className="text-gray-400">offer</span>
         </h3>
         <div className="flex gap-10">
           {" "}
