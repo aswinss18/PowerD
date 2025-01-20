@@ -8,7 +8,7 @@ import UserProfile from "./UserProfile";
 export default function Menubar() {
   const [isOpen, setIsOpen] = useState(false);
   return isOpen ? (
-    <div className="md:hidden bg-gray-300 w-3/4 absolute right-0 z-50 h-full py-6 px-8 flex flex-col  justify-between cursor-pointer shadow-xl">
+    <div className="md:hidden bg-gray-300 w-3/4 fixed right-0 z-50 h-full py-6 px-8 flex flex-col  justify-between cursor-pointer shadow-xl">
       <div>
         <div className="flex items-center justify-between">
           <UserProfile />

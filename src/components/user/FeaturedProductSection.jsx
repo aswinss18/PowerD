@@ -170,14 +170,14 @@ export default function FeaturedProductSection() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10 py-20">
-      <div className="flex items-center justify-between w-3/4 cursor-pointer">
-        <h3 className="text-4xl font-semibold">
+    <div className="flex flex-col items-center justify-center gap-10 py-20  ">
+      <div className="flex items-center justify-between md:w-3/4 w-[90%] cursor-pointer">
+        <h3 className="text-xl md:text-4xl font-semibold ">
           What we <span className="text-gray-400">offer</span>
         </h3>
         <div className="flex gap-10">
           {" "}
-          <div className="text-2xl flex gap-6 ">
+          <div className="text-2xl lg:flex gap-6 hidden">
             <span className="border-b-2 hover:border-gray-400 border-b-transparent px-2 transition-all ease-in-out duration-300">
               New arrivals
             </span>
@@ -187,15 +187,23 @@ export default function FeaturedProductSection() {
             <span className="border-b-2 hover:border-gray-400 border-b-transparent px-2 transition-all ease-in-out duration-300">
               Bike accessories
             </span>
-          </div>
-          <div className="flex justify-center items-center gap-4 text-2xl ">
+          </div>{" "}
+          <select className=" w-full border-2 hover:border-gray-400 border-gray-400 px-2 py-2 transition-all ease-in-out duration-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-gray-600 lg:hidden">
+            <option value="" disabled defaultValue={""}>
+              Select a category
+            </option>
+            <option value="new-arrivals">New Arrivals</option>
+            <option value="car-accessories">Car Accessories</option>z
+            <option value="bike-accessories">Bike Accessories</option>
+          </select>
+          <div className="md:flex justify-center items-center gap-4 text-2xl hidden ">
             <MdOutlineKeyboardArrowLeft size={40} />
             <span>2</span>
             <MdOutlineKeyboardArrowRight size={40} />
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10 ">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}

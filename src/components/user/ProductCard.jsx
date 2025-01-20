@@ -26,8 +26,8 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="border-2 border-gray-400 h-[500px] w-[320px] p-4 rounded-md flex flex-col justify-around items-center">
-      <div className="relative w-[300px] h-[300px] object-cover shadow-xl">
+    <div className="border-2 border-gray-400  md:h-[500px] md:w-[320px] p-4 rounded-md flex flex-col justify-around items-center">
+      <div className="relative md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] w-[300px]  h-[300px] object-cover shadow-xl">
         <Suspense fallback={<div>Loading...</div>}>
           <Image fill src={product.image} alt={product.name} />
         </Suspense>
@@ -45,7 +45,7 @@ export default function ProductCard({ product }) {
             {Math.floor(product.price * 1.2)} Rs
           </span>
         </span>
-        <FaCartPlus size={28} color="#8a8a8a" />
+        <FaCartPlus size={34} color="#8a8a8a" className="mb-6" />
       </div>
     </div>
   );
