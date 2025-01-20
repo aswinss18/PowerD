@@ -1,5 +1,5 @@
-import FeaturedProductSection from "@/components/user/FeaturedProductSection.jsx";
-import HeroSection from "@/components/user/HeroSection.jsx";
+import FeaturedProductSection from "../components/user/FeaturedProductSection";
+import HeroSection from "../components/user/HeroSection";
 
 export default function Home() {
   return (

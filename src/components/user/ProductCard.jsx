@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
 
         {renderStars(product.rating)}
       </div>
-      <div className="w-full flex justify-between pr-8 text-xl">
+      <div className="w-full flex justify-between pr-8 text-xl cursor-pointer">
         <span>
           {product.price} Rs
           <span className="line-through text-[#8a8a8a] px-4">

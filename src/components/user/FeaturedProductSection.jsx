@@ -171,7 +171,7 @@ export default function FeaturedProductSection() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-10 py-20">
-      <div className="flex items-center justify-between w-3/4">
+      <div className="flex items-center justify-between w-3/4 cursor-pointer">
         <h3 className="text-4xl font-semibold">
           What we <span className="text-gray-400">offer</span>
         </h3>
@@ -179,7 +179,7 @@ export default function FeaturedProductSection() {
           {" "}
           <div className="text-2xl flex gap-6 ">
             <span className="border-b-2 hover:border-gray-400 border-b-transparent px-2 transition-all ease-in-out duration-300">
-              New arrivals ed
+              New arrivals
             </span>
             <span className="border-b-2 hover:border-gray-400 border-b-transparent px-2 transition-all ease-in-out duration-300">
               Car accessories
