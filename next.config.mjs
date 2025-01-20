@@ -5,6 +5,14 @@ const nextConfig = {
   experimental: {
     appDir: true, // Ensure the `app` directory works (if using Next.js 13+ features)
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

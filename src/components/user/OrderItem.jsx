@@ -3,7 +3,7 @@ import React from "react";
 export default function OrderItem({ order }) {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-      <h4 className="text-lg font-semibold text-blue-600">Order #{order.id}</h4>
+      <h4 className="text-lg font-semibold text-gray-600">Order #{order.id}</h4>
       <p className="text-sm text-gray-500">
         Date: {new Date(order.date).toLocaleDateString()}
       </p>
