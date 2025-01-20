@@ -1,6 +1,6 @@
 import BlogPost from "./BlogPost";
 
-export default function BlogPage() {
+export default function BlogSection() {
   const blogPosts = [
     {
       title: "Top 5 Accessories to Enhance Your Car's Performance",
