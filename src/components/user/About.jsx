@@ -3,13 +3,11 @@ import Logo from "../common/Logo";
 
 export default function About() {
   return (
-    <div className="bg-gray-50 py-10">
+    <div className="bg-gray-50 py-10 flex flex-col pt-[10rem]">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center text-blue-600 mb-8">
-          About Us
-        </h2>
+        <h2 className="text-4xl font-bold text-center  mb-8">About Us</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="">
           <div className="space-y-4">
             <p className="text-lg text-gray-700">
               Welcome to Power-D Automotives, your go-to destination for premium
@@ -35,17 +33,17 @@ export default function About() {
             </p>
           </div>
 
-          <div>
+          {/* <div>
             <Logo />
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-12 text-center">
-          <h3 className="text-2xl font-semibold text-blue-600">
-            Why Choose Us?
+          <h3 className="text-2xl font-semibold ">
+            Why Choose <span className="text-gray-500">Us </span>?
           </h3>
           <p className="text-lg text-gray-700 mt-4">We offer:</p>
-          <ul className="list-disc list-inside text-gray-700 mt-4">
+          <ul className="list-disc list-inside  flex flex-col  w-1/2 mx-auto text-left text-gray-700 mt-4">
             <li>Top-quality products sourced from trusted suppliers.</li>
             <li>Fast and reliable shipping for your convenience.</li>
             <li>Competitive prices to fit all budgets.</li>

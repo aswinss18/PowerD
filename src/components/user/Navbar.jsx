@@ -16,23 +16,26 @@ export default function Navbar() {
         </Link>
         <Link href="/cart">
           {" "}
-          <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300">
+          <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300 relative">
             Cart
+            <span className="absolute bg-red-500 w-5 h-5 rounded-full text-[16px] top-0 right-[-12px] flex justify-center items-center text-white">
+              1
+            </span>
           </li>
         </Link>{" "}
-        <Link href="/">
+        <Link href="/about">
           {" "}
           <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300">
             About Us
           </li>
         </Link>{" "}
-        <Link href="/">
+        <Link href="/contact">
           {" "}
           <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300">
             Contact Us
           </li>
         </Link>{" "}
-        <Link href="/">
+        <Link href="/blog">
           {" "}
           <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300">
             Blog
