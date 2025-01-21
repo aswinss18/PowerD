@@ -7,7 +7,6 @@ import Link from "next/link";
 
 export default function Navbar() {
   const session = useSession();
-  console.log(session);
 
   const handleSignIn = async () => {
     try {
