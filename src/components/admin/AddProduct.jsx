@@ -35,15 +35,27 @@ export default function AddProduct() {
           }
           className="border p-2 mr-2 w-1/3"
         />
-        <input
-          type="text"
-          placeholder="Category"
-          value={newProduct.category}
+        <select
           onChange={(e) =>
-            setNewProduct({ ...newProduct, price: e.target.value })
+            setNewProduct({ ...newProduct, category: e.target.value })
           }
           className="border p-2 mr-2 w-1/3"
-        />{" "}
+        >
+          <option value="">Select Category</option>
+          <option value="Safety Gear">Safety Gear</option>
+          <option value="Interior">Interior</option>
+          <option value="Lighting">Lighting</option>
+          <option value="Decorative">Decorative</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Utility">Utility</option>
+          <option value="Performance">Performance</option>
+          <option value="Handlebars">Handlebars</option>
+          <option value="Mirrors">Mirrors</option>
+          <option value="Security">Security</option>
+          <option value="Cleaning">Cleaning</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Protection">Protection</option>
+        </select>
         <input
           type="number"
           placeholder="Price"
@@ -63,7 +75,6 @@ export default function AddProduct() {
           className="border p-2 mr-2 w-1/3"
         />{" "}
         <select
-          type="number"
           onChange={(e) =>
             setNewProduct({ ...newProduct, vehicleType: e.target.value })
           }

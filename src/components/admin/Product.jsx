@@ -5,8 +5,8 @@ export default function Product({ product, id }) {
     <tr key={product.id} className="odd:bg-gray-50">
       <td className="px-4 py-2">{id}</td>
       <td className="px-4 py-2">{product.name}</td>
-      <td className="px-4 py-2">${product.category}</td>
-      <td className="px-4 py-2">{product.price}</td>
+      <td className="px-4 py-2">{product.category}</td>
+      <td className="px-4 py-2">{product.price} Rs</td>
       <td className="px-4 py-2">{product.rating}</td>
       <td className="px-4 py-2">{product.vehicleType}</td>
       <td className="px-4 py-2">{product.image}</td>
