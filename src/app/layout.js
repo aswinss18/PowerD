@@ -7,6 +7,7 @@ import Menubar from "../components/user/Menubar";
 import { SessionProvider } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Sidebar from "../components/admin/Sidebar";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <ToastContainer />
           <main>
             {pathname.includes("admin") ? (
               <Sidebar />
