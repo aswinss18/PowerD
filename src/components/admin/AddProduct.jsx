@@ -1,15 +1,12 @@
 "use client";
+import { addProduct } from "../../lib/actions/products.actions";
 import React, { useState } from "react";
 
 export default function AddProduct() {
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-    stock: "",
-  });
+  const [newProduct, setNewProduct] = useState({});
   const handleAddProduct = () => {
-    if (!newProduct.name || !newProduct.price || !newProduct.stock) {
+    if (!newProduct.name || !newProduct.price) {
       alert("Please fill in all fields.");
       return;
     }
@@ -20,7 +17,9 @@ export default function AddProduct() {
     };
 
     setProducts([...products, newProductData]);
-    setNewProduct({ name: "", price: "", stock: "" });
+
+    addProduct(newProductData);
+    setNewProduct({});
   };
   return (
     <section>
@@ -70,7 +69,7 @@ export default function AddProduct() {
           placeholder="Rating"
           value={newProduct.rating}
           onChange={(e) =>
-            setNewProduct({ ...newProduct, price: e.target.value })
+            setNewProduct({ ...newProduct, rating: e.target.value })
           }
           className="border p-2 mr-2 w-1/3"
         />{" "}
@@ -83,7 +82,7 @@ export default function AddProduct() {
           <option value="Bike">Bike</option>
           <option value="Car">Car</option>
         </select>{" "}
-        <input
+        {/* <input
           type="file"
           placeholder="Image"
           value={newProduct.image}
@@ -91,7 +90,15 @@ export default function AddProduct() {
             setNewProduct({ ...newProduct, price: e.target.value })
           }
           className="border p-2 mr-2 w-1/3"
-        />{" "}
+        />{" "} */}
+        <input
+          type="text"
+          placeholder="Image"
+          className="border p-2 mr-2 w-1/3"
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, image: e.target.value })
+          }
+        />
         <button
           onClick={handleAddProduct}
           className="bg-blue-600 text-white px-4 py-2 rounded-md"
