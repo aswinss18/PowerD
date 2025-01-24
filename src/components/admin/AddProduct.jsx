@@ -65,12 +65,9 @@ export default function AddProduct() {
             endpoint="imageUploader"
             placeholder="Upload Image"
             onClientUploadComplete={(res) => {
-              // Do something with the response
-              console.log("Files: ", res);
-
               const { key, name, url } = res[0];
               setImage(url);
-              console.log(key, name, url);
+              setNewProduct({ ...newProduct, image: url });
               toast.success("Upload Completed");
             }}
             onUploadError={(error) => {
@@ -79,7 +76,7 @@ export default function AddProduct() {
             }}
           />
         </div>
-        <div>
+        <div className="grid grid-cols-2 grid-rows-3 gap-4">
           <input
             type="text"
             placeholder="Product Name"
@@ -87,14 +84,14 @@ export default function AddProduct() {
             onChange={(e) =>
               setNewProduct({ ...newProduct, name: e.target.value })
             }
-            className="border p-2 mr-2 w-1/3"
+            className="border p-2 mr-2 "
           />
           <select
             value={newProduct.category} // Bind value
             onChange={(e) =>
               setNewProduct({ ...newProduct, category: e.target.value })
             }
-            className="border p-2 mr-2 w-1/3"
+            className="border p-2 mr-2 "
           >
             <option value="">Select Category</option>
             <option value="Safety Gear">Safety Gear</option>
@@ -118,7 +115,7 @@ export default function AddProduct() {
             onChange={(e) =>
               setNewProduct({ ...newProduct, price: e.target.value })
             }
-            className="border p-2 mr-2 w-1/3"
+            className="border p-2 mr-2 "
           />
           <input
             type="number"
@@ -127,34 +124,25 @@ export default function AddProduct() {
             onChange={(e) =>
               setNewProduct({ ...newProduct, rating: e.target.value })
             }
-            className="border p-2 mr-2 w-1/3"
+            className="border p-2 mr-2"
           />
           <select
             value={newProduct.vehicleType} // Bind value
             onChange={(e) =>
               setNewProduct({ ...newProduct, vehicleType: e.target.value })
             }
-            className="border p-2 mr-2 w-1/3"
+            className="border p-2 mr-2 "
           >
             <option value="Bike">Bike</option>
             <option value="Car">Car</option>
           </select>
-          <input
-            type="text"
-            placeholder="Image"
-            value={newProduct.image}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, image: e.target.value })
-            }
-            className="border p-2 mr-2 w-1/3"
-          />{" "}
           <button
             onClick={handleAddProduct}
             className="bg-blue-600 text-white px-4 py-2 rounded-md"
           >
             Add Product
           </button>
-        </div>
+        </div>{" "}
       </div>
     </section>
   );
