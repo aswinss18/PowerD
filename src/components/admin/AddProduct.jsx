@@ -13,9 +13,8 @@ export default function AddProduct() {
     price: "",
     rating: "",
     vehicleType: "Bike", // Default to "Bike"
-    image: "",
+    image: "/dummyProduct.jpeg",
   });
-  const [image, setImage] = useState("/hero1.jpeg");
 
   const handleAddProduct = () => {
     if (
@@ -50,7 +49,7 @@ export default function AddProduct() {
       price: "",
       rating: "",
       vehicleType: "Bike", // Reset to "Bike"
-      image: "",
+      image: "/dummyProduct.jpeg",
     });
   };
 
@@ -58,15 +57,23 @@ export default function AddProduct() {
     <section>
       <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
       <div className="bg-white shadow-md rounded-lg p-4 mb-6 flex justify-center items-center gap-12">
-        <div className="rounded-md   w-[10rem] flex flex-col justify-center items-center">
-          <Image src={image} alt="Product Image" width={100} height={100} />
+        <div className="  w-[12rem] flex flex-col justify-center items-center">
+          <p className="font-medium mb-2 w-full text-center text-gray-700">
+            Upload Product Image
+          </p>
+          <Image
+            className="rounded-md"
+            src={newProduct?.image}
+            alt="Product Image"
+            width={100}
+            height={100}
+          />
           <UploadButton
             className=" text-white px-4 py-2 rounded-md w-[10rem]"
             endpoint="imageUploader"
             placeholder="Upload Image"
             onClientUploadComplete={(res) => {
               const { key, name, url } = res[0];
-              setImage(url);
               setNewProduct({ ...newProduct, image: url });
               toast.success("Upload Completed");
             }}
