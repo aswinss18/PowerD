@@ -1,5 +1,6 @@
 "use server";
 
+import { UTApi } from "uploadthing/server";
 import Products from "../database/models/product.modal";
 import { connectToDatabase } from "../database/mongoDB/mongoose";
 
@@ -33,6 +34,18 @@ export const updateProduct = async (id, data) => {
     const updatedProducts = await Products.findByIdAndUpdate(id, data);
 
     return { status: true, data: updatedProducts };
+  } catch (error) {
+    console.error(error);
+    return { status: false, error };
+  }
+};
+export const deleteProduct = async (id, imgKey) => {
+  try {
+    await connectToDatabase();
+    const utApi = new UTApi();
+    const deletedProduct = await Products.findByIdAndDelete(id);
+    await utApi.deleteFiles(imgKey);
+    return { status: true, data: deletedProduct, key: imgKey };
   } catch (error) {
     console.error(error);
     return { status: false, error };

@@ -22,7 +22,6 @@ const geistMono = Geist_Mono({
 ///small change ///
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <SessionProvider>

@@ -14,6 +14,7 @@ export default function AddProduct() {
     rating: "",
     vehicleType: "Bike", // Default to "Bike"
     image: "/dummyProduct.jpeg",
+    imgKey: "",
   });
 
   const handleAddProduct = () => {
@@ -34,6 +35,7 @@ export default function AddProduct() {
     };
 
     setProducts([...products, newProductData]);
+
     try {
       const response = addProduct(newProductData);
 
@@ -50,6 +52,7 @@ export default function AddProduct() {
       rating: "",
       vehicleType: "Bike", // Reset to "Bike"
       image: "/dummyProduct.jpeg",
+      imgKey: "",
     });
   };
 
@@ -74,7 +77,8 @@ export default function AddProduct() {
             placeholder="Upload Image"
             onClientUploadComplete={(res) => {
               const { key, name, url } = res[0];
-              setNewProduct({ ...newProduct, image: url });
+
+              setNewProduct({ ...newProduct, image: url, imgKey: key });
               toast.success("Upload Completed");
             }}
             onUploadError={(error) => {
