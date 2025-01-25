@@ -41,7 +41,6 @@ export default function AddProduct() {
 
       toast.success("Product added successfully");
     } catch (error) {
-      console.log(error);
       toast.error("Product adding failed.");
     }
 

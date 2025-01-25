@@ -22,7 +22,6 @@ export default function AdminDashboard() {
       setProducts(response.data);
       toast.success("Products are loaded successfully.");
     } catch (error) {
-      console.log(error);
       toast.error("Products are failed to load.");
     }
   };
