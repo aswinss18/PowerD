@@ -1,13 +1,12 @@
 "use client";
 
 import { signIn, useSession } from "next-auth/react";
-import Link from "next/link";
 import React, { useState } from "react";
 import { loginAdmin } from "../../lib/actions/admin.actions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-export default function HomeAdmin() {
+export default function HomeAdmin({ children }) {
   const session = useSession();
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,20 +28,18 @@ export default function HomeAdmin() {
 
   return (
     <div className="bg-blue-500 w-screen h-screen flex flex-col gap-24 justify-center items-center">
-      <h1 className="text-6xl font-bold text-white">Welcome to admin page </h1>
-      <div className="flex gap-10">
+      <h1 className="text-6xl font-bold text-white">Welcome to admin page</h1>
+      <div className="flex gap-10 w-full justify-center items-center">
         {loggedIn ? (
-          { children }
+          children
         ) : (
           <div className="flex flex-col gap-14 items-center">
-            <p className="text-3xl font-semibold text-white">
-              Unauthorised : )
-            </p>
+            <p className="text-3xl font-semibold text-white">Unauthorized :(</p>
             <button
               className="text-xl text-blue-700 font-semibold bg-white px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300 ease-in-out"
               onClick={handleSignIn}
             >
-              Sign In as Admin
+              Sign In
             </button>
           </div>
         )}

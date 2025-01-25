@@ -8,7 +8,7 @@ import { TiThMenu } from "react-icons/ti";
 export default function Sidebar() {
   const [sidebar, setSidebar] = useState(false);
   return (
-    <div className="fixed  h-screen">
+    <div className="fixed  h-screen ">
       {sidebar ? (
         <aside className="w-64 bg-blue-600 text-white flex flex-col fixed h-screen pt-10">
           <header className="py-4 px-6 text-2xl font-bold flex justify-between">
@@ -47,7 +47,7 @@ export default function Sidebar() {
           size={40}
           onClick={() => setSidebar(true)}
           color="white"
-          className="cursor-pointer  mx-5 my-2"
+          className="cursor-pointer  "
         />
       )}
     </div>

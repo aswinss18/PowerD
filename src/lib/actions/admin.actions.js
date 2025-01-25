@@ -8,13 +8,24 @@ export const loginAdmin = async (email) => {
     // Connect to the database
     await connectToDatabase();
 
-    // Check if the admin exists in the database
-    const adminExist = await Admins.findOne({ email }); // Convert to a plain object
-    if (!adminExist) {
+    // Find the admin document
+    const admin = await Admins.findOne({ email });
+
+    if (!admin) {
       return { error: "Admin not found", adminExist: false };
     }
 
-    return { adminExist: true, data: adminExist };
+    // Convert the Mongoose document to a plain object
+    const adminData = admin.toObject();
+
+    // Convert the `_id` field to a string
+    return {
+      adminExist: true,
+      data: {
+        ...adminData,
+        _id: adminData._id.toString(),
+      },
+    };
   } catch (error) {
     console.error("Error during admin login:", error.message);
     return { error: error.message };
