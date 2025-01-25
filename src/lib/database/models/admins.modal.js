@@ -6,6 +6,10 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
 
     image: {
       type: String,
@@ -20,7 +24,6 @@ const adminSchema = new mongoose.Schema(
 );
 
 // Check if the model already exists to prevent overwriting during hot-reloading
-const Admins =
-  mongoose.models.Products || mongoose.model("admins", adminSchema);
+const Admins = mongoose.models.admins || mongoose.model("admins", adminSchema);
 
 export default Admins;
