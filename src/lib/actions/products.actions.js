@@ -1,6 +1,5 @@
 "use server";
 
-import { NextResponse } from "next/server";
 import Products from "../database/models/product.modal";
 import { connectToDatabase } from "../database/mongoDB/mongoose";
 
@@ -10,12 +9,21 @@ export const addProduct = async (product) => {
     const newProduct = await Products.create(product);
     // Convert the Mongoose document to a plain object
     const plainProduct = newProduct.toObject();
-    return NextResponse.json(plainProduct, { status: 200 });
+    return plainProduct;
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return { error };
+  }
+};
+
+export const getProducts = async () => {
+  try {
+    await connectToDatabase();
+    const allProducts = await Products.find({});
+
+    return { status: true, data: allProducts };
+  } catch (error) {
+    console.error(error);
+    return { status: false, error };
   }
 };
