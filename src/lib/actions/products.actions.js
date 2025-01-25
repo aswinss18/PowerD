@@ -27,3 +27,14 @@ export const getProducts = async () => {
     return { status: false, error };
   }
 };
+export const updateProduct = async (id, data) => {
+  try {
+    await connectToDatabase();
+    const updatedProducts = await Products.findByIdAndUpdate(id, data);
+
+    return { status: true, data: updatedProducts };
+  } catch (error) {
+    console.error(error);
+    return { status: false, error };
+  }
+};

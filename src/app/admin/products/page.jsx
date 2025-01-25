@@ -14,6 +14,7 @@ export default function AdminDashboard() {
   const { data: session, status } = useSession();
 
   const [products, setProducts] = useState([]);
+
   const fetchData = async () => {
     try {
       const response = await getProducts();
