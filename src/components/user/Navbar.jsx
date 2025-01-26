@@ -4,13 +4,33 @@ import React from "react";
 import Logo from "../common/Logo";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
+import { createCustomer } from "../../lib/actions/customer.actions";
 
 export default function Navbar() {
   const session = useSession();
 
   const handleSignIn = async () => {
     try {
-      await signIn("google"); // Initiates Google login
+      const response = await signIn("google", { redirect: false }); // `redirect: false` to avoid redirecting immediately
+      if (response?.error) {
+        console.error("Sign in failed:", response?.error);
+        return;
+      }
+
+      // Ensure session is available after sign-in
+      const sessionResponse = await useSession();
+
+      if (sessionResponse.status === "authenticated") {
+        const userEmail =
+          sessionResponse?.data?.user?.email || "xxxxx2gmail.com";
+        console.log("Creating user with email:", userEmail);
+
+        // Now call createCustomer
+        const result = await createCustomer({ email: userEmail });
+
+        // Check the result
+        console.log("User creation result:", result);
+      }
     } catch (error) {
       console.error("Sign in failed:", error);
     }

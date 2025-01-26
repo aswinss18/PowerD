@@ -1,15 +1,28 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { createCustomer } from "../../lib/actions/customer.actions";
+import { signIn, useSession } from "next-auth/react";
 
 import React from "react";
 
 const Unauthorized = () => {
+  const session = useSession();
+
   const handleSignIn = async () => {
     try {
-      await signIn("google", {
-        callbackUrl: "/",
-      });
+      // Trigger sign-in
+      await signIn("google", { callbackUrl: "/" });
+
+      // Wait for the session to update after sign-in
+      const interval = setInterval(async () => {
+        const updatedSession = await fetch("/api/auth/session").then((res) =>
+          res.json()
+        );
+        if (updatedSession && updatedSession.user) {
+          clearInterval(interval); // Stop the interval once the session is updated
+          await createCustomer(updatedSession.user); // Call createCustomer with updated user
+        }
+      }, 500); // Check every 500ms
     } catch (error) {
       console.error("Sign in failed:", error);
     }
