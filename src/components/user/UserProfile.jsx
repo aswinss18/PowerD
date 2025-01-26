@@ -10,7 +10,7 @@ export default function UserProfile({ data }) {
     <div className="flex flex-col justify-center items-center cursor-pointer relative">
       <Image
         onClick={() => setIsModalOpen(!isModalOpen)}
-        src={data?.user?.image || "/avatar.png"}
+        src={data?.user?.image || "/avatar.jpeg"}
         alt="avatar"
         width={40}
         height={40}

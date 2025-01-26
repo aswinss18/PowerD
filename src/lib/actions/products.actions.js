@@ -20,14 +20,25 @@ export const addProduct = async (product) => {
 export const getProducts = async () => {
   try {
     await connectToDatabase();
-    const allProducts = await Products.find({});
 
-    return { status: true, data: allProducts };
+    // Use .lean() to convert Mongoose documents to plain objects
+    const allProducts = await Products.find({}).lean();
+
+    // Format `_id` and other non-JSON-friendly fields
+    const formattedProducts = allProducts.map((product) => ({
+      ...product,
+      _id: product._id.toString(), // Convert ObjectId to string
+      createdAt: product.createdAt?.toISOString(), // Convert Date to string
+      updatedAt: product.updatedAt?.toISOString(), // Convert Date to string
+    }));
+
+    return { status: true, data: formattedProducts };
   } catch (error) {
     console.error(error);
     return { status: false, error };
   }
 };
+
 export const updateProduct = async (id, data) => {
   try {
     await connectToDatabase();

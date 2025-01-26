@@ -18,7 +18,6 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const response = await getProducts();
-
       setProducts(response.data);
       toast.success("Products are loaded successfully.");
     } catch (error) {
