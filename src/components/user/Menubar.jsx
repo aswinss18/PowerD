@@ -4,6 +4,7 @@ import Logo from "../common/Logo";
 import { IoMdCloseCircle } from "react-icons/io";
 import { TiThMenu } from "react-icons/ti";
 import UserProfile from "./UserProfile";
+import Link from "next/link";
 
 export default function Menubar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,21 +16,35 @@ export default function Menubar() {
           <IoMdCloseCircle size={35} onClick={() => setIsOpen(false)} />
         </div>
         <ul className="text-3xl px-2  flex flex-col gap-5 mt-12  ">
-          <li className="hover:underline transition-all ease-in-out duration-300">
-            Home
-          </li>
-          <li className="hover:underline transition-all ease-in-out duration-300">
-            Shop
-          </li>
-          <li className="hover:underline transition-all ease-in-out duration-300">
-            About Us
-          </li>
-          <li className="hover:underline transition-all ease-in-out duration-300">
-            Contact Us
-          </li>
-          <li className="hover:underline transition-all ease-in-out duration-300">
-            Blog
-          </li>
+          <Link href="/">
+            <li className="hover:underline transition-all ease-in-out duration-300">
+              Home
+            </li>
+          </Link>{" "}
+          <Link href="/cart">
+            {" "}
+            <li className="hover:underline transition-all ease-in-out duration-300">
+              Cart
+            </li>
+          </Link>{" "}
+          <Link href="/about">
+            {" "}
+            <li className="hover:underline transition-all ease-in-out duration-300">
+              About Us
+            </li>
+          </Link>{" "}
+          <Link href="/contact">
+            {" "}
+            <li className="hover:underline transition-all ease-in-out duration-300">
+              Contact Us
+            </li>
+          </Link>{" "}
+          <Link href="/blog">
+            {" "}
+            <li className="hover:underline transition-all ease-in-out duration-300">
+              Blog
+            </li>
+          </Link>
         </ul>
       </div>
 
