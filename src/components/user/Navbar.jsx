@@ -28,7 +28,7 @@ export default function Navbar() {
     <div className="hidden md:flex fixed w-screen z-50 bg-gray-300 justify-around items-center py-4 px-8 shadow-md cursor-pointer">
       <Logo />
       {/* ////////////// developmenbt?????? */}
-      {session.status === "authenticated" && (
+      {session.status !== "authenticated" && (
         <ul className="flex gap-8 text-2xl font-semibold">
           <Link href="/">
             <li className="hover:border-b-black border-b-2 border-transparent px-2 transition-all ease-in-out duration-300">

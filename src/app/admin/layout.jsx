@@ -15,6 +15,7 @@ export default function HomeAdmin({ children }) {
     try {
       if (session.status === "authenticated") {
         const response = await loginAdmin(session?.data?.user?.email);
+        console.log(response);
         setLoggedIn(response.adminExist);
         if (!response.adminExist) {
           router.push("/unauthorised");

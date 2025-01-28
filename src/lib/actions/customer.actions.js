@@ -28,6 +28,49 @@ export const createCustomer = async (user) => {
   }
 };
 
+export const addToCart = async (newCartItems, userId) => {
+  try {
+    await connectToDatabase();
+
+    const customer = await Customers.findById(userId);
+
+    if (!customer) {
+      return { status: false, error: "Customer not found" };
+    }
+
+    if (!customer.cart) {
+      customer.cart = [];
+    }
+
+    newCartItems.forEach((newItem) => {
+      const existingItem = customer.cart.find(
+        (item) => item.productId.toString() === newItem.productId
+      );
+
+      if (existingItem) {
+        existingItem.quantity += parseInt(newItem.quantity);
+      } else {
+        customer.cart.push({
+          productId: newItem.productId,
+          quantity: parseInt(newItem.quantity),
+        });
+      }
+    });
+
+    // ✅ Use findByIdAndUpdate with $set to ensure changes persist
+    await Customers.findByIdAndUpdate(
+      userId,
+      { $set: { cart: customer.cart } },
+      { new: true }
+    );
+
+    return { status: true, data: customer.cart };
+  } catch (error) {
+    console.error("Error in addToCart:", error);
+    return { status: false, error };
+  }
+};
+
 export const testCreateCustomer = async () => {
   const result = await createCustomer({ email: "xxxdfhdskuh@gmail.com" });
   console.log(result);
