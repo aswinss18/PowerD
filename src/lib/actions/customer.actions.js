@@ -27,3 +27,8 @@ export const createCustomer = async (user) => {
     };
   }
 };
+
+export const testCreateCustomer = async () => {
+  const result = await createCustomer({ email: "xxxdfhdskuh@gmail.com" });
+  console.log(result);
+};

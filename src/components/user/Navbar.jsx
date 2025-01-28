@@ -5,6 +5,7 @@ import Logo from "../common/Logo";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import { createCustomer } from "../../lib/actions/customer.actions";
+import LoginButton from "./LoginButton";
 
 export default function Navbar() {
   const session = useSession();
@@ -18,19 +19,6 @@ export default function Navbar() {
       }
 
       // Ensure session is available after sign-in
-      const sessionResponse = await useSession();
-
-      if (sessionResponse.status === "authenticated") {
-        const userEmail =
-          sessionResponse?.data?.user?.email || "xxxxx2gmail.com";
-        console.log("Creating user with email:", userEmail);
-
-        // Now call createCustomer
-        const result = await createCustomer({ email: userEmail });
-
-        // Check the result
-        console.log("User creation result:", result);
-      }
     } catch (error) {
       console.error("Sign in failed:", error);
     }
@@ -39,6 +27,7 @@ export default function Navbar() {
   return (
     <div className="hidden md:flex fixed w-screen z-50 bg-gray-300 justify-around items-center py-4 px-8 shadow-md cursor-pointer">
       <Logo />
+      {/* ////////////// developmenbt?????? */}
       {session.status === "authenticated" && (
         <ul className="flex gap-8 text-2xl font-semibold">
           <Link href="/">
@@ -72,12 +61,7 @@ export default function Navbar() {
         </ul>
       )}
       {session.status === "unauthenticated" ? (
-        <button
-          onClick={handleSignIn}
-          className="text-white font-semibold bg-gray-600 px-6 py-2 rounded-lg text-xl hover:bg-gray-700 transition-all ease-in-out duration-300"
-        >
-          Login
-        </button>
+        <LoginButton handleSignIn={handleSignIn} data={session?.data} />
       ) : (
         <UserProfile data={session?.data} />
       )}
