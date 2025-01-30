@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-      <FeaturedProductSection />
+      <FeaturedProductSection user={session.data?.user} />
     </div>
   );
 }

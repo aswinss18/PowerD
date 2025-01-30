@@ -11,7 +11,11 @@ export const createCustomer = async (user) => {
 
     if (userExists) {
       console.log("User already exists");
-      return { status: true, message: "User already exists." };
+      return {
+        status: true,
+        message: "User already exists.",
+        data: userExists,
+      };
     }
 
     const newUser = await Customers.create({ email: user?.email });

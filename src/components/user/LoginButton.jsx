@@ -13,7 +13,7 @@ export default function LoginButton({ handleSignIn, data }) {
 
     // Check the result
   };
-  createCustomer({ email: data?.user?.email || "aswinartography@gmail.com" });
+  createCustomer({ email: data?.user?.email });
   return (
     <button
       onClick={customerLogin}

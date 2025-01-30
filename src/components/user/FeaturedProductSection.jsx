@@ -7,10 +7,10 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 import { getProducts } from "../../lib/actions/products.actions";
-import { set } from "mongoose";
+
 import { toast } from "react-toastify";
 
-export default function FeaturedProductSection() {
+export default function FeaturedProductSection({ user }) {
   const [productsData, setProductsData] = useState([]);
   // const products = [
   //   {
@@ -182,6 +182,7 @@ export default function FeaturedProductSection() {
   const fetchData = async () => {
     const { data } = await getProducts();
     setProductsData(data);
+
     if (!data) return toast.error("Failed to load products.");
   };
 
@@ -222,7 +223,7 @@ export default function FeaturedProductSection() {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10 ">
         {productsData.length > 0 ? (
           productsData.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <ProductCard key={index} product={product} user={user} />
           ))
         ) : (
           <p className="text-3xl font-bold text-gray-600 border-2">

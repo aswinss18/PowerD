@@ -1,8 +1,40 @@
+import { createCustomer } from "../../lib/actions/customer.actions";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, user }) {
+  const response = createCustomer({
+    email: "aswinss0018@gmail.com",
+  });
+  console.log(response, "response");
+
+  const handleAddToCart = async (product) => {
+    const productId = product?._id; // Ensure this is defined
+    const quantity = 1; // Ensure this is a valid number
+
+    if (!productId || isNaN(quantity) || quantity <= 0) {
+      console.error("Invalid productId or quantity:", {
+        productId: product?._id,
+        quantity,
+      });
+      return;
+    }
+    const responseCustomer = await createCustomer({
+      email: "aswinss0018@gmail.com",
+    });
+
+    try {
+      const response = await addToCart(
+        [{ productId, quantity }],
+        responseCustomer?.data?._id
+      );
+      console.log(response, "response");
+      console.log("Add to Cart Response:", response);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
   // Function to generate stars based on rating
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating); // Full stars
@@ -50,7 +82,13 @@ export default function ProductCard({ product }) {
             {Math.floor(product.price * 1.2)} Rs
           </span>
         </span>
-        <FaCartPlus size={34} color="#8a8a8a" className="mb-6" />
+
+        <FaCartPlus
+          size={34}
+          onClick={handleAddToCart}
+          color="#8a8a8a"
+          className="mb-6"
+        />
       </div>
     </div>
   );
