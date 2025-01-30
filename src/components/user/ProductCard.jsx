@@ -27,9 +27,14 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="border-2 border-gray-400  md:h-[500px] md:w-[320px] p-4 rounded-md flex flex-col justify-around items-center">
-      <div className="relative md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] w-[300px]  h-[300px] object-cover shadow-xl">
+      <div className="relative md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] w-[300px]  h-[300px] object-cover shadow-xl rounded-md overflow-hidden">
         <Suspense fallback={<div>Loading...</div>}>
-          <Image fill src={product.image} alt={product.name} />
+          <Image
+            fill
+            src={product.image}
+            alt={product.name}
+            objectFit="cover"
+          />
         </Suspense>
       </div>
       <div className="w-full">

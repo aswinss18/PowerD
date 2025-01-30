@@ -25,21 +25,33 @@ export default function Cart() {
       )}
       <div className="mt-4 flex justify-between items-center">
         <p
-          onClick={() => {
-            addToCart(
-              [
-                {
-                  productId: "6798e3dce96330e2b0f4342e",
-                  quantity: "8",
-                },
-              ],
-              "6798e3679f752a58e69f3b48"
-            );
+          onClick={async () => {
+            const productId = "6798e3dce96330e2b0f4342e"; // Ensure this is defined
+            const quantity = 8; // Ensure this is a valid number
+
+            if (!productId || isNaN(quantity) || quantity <= 0) {
+              console.error("Invalid productId or quantity:", {
+                productId,
+                quantity,
+              });
+              return;
+            }
+
+            try {
+              const response = await addToCart(
+                [{ productId, quantity }],
+                "6798e3679f752a58e69f3b48"
+              );
+              console.log("Add to Cart Response:", response);
+            } catch (error) {
+              console.error("Error adding to cart:", error);
+            }
           }}
           className="bg-red-500 cursor-pointer"
         >
           Add
         </p>
+
         <h3 className="text-xl font-semibold">Total: </h3>
         <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
           Checkout

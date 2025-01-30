@@ -28,48 +28,40 @@ export const createCustomer = async (user) => {
   }
 };
 
-export const addToCart = async (newCartItems, userId) => {
+export async function addToCart(items, userId) {
   try {
-    await connectToDatabase();
+    console.log("Processing addToCart for user:", userId, "with items:", items);
 
-    const customer = await Customers.findById(userId);
-
-    if (!customer) {
-      return { status: false, error: "Customer not found" };
+    // Validate input
+    if (!Array.isArray(items) || items.length === 0) {
+      throw new Error("Cart items must be an array with at least one item.");
     }
 
-    if (!customer.cart) {
-      customer.cart = [];
-    }
-
-    newCartItems.forEach((newItem) => {
-      const existingItem = customer.cart.find(
-        (item) => item.productId.toString() === newItem.productId
-      );
-
-      if (existingItem) {
-        existingItem.quantity += parseInt(newItem.quantity);
-      } else {
-        customer.cart.push({
-          productId: newItem.productId,
-          quantity: parseInt(newItem.quantity),
-        });
+    for (const item of items) {
+      if (!item.productId || typeof item.productId !== "string") {
+        throw new Error(`Invalid productId: ${item.productId}`);
       }
-    });
+      if (!item.quantity || isNaN(item.quantity) || item.quantity <= 0) {
+        throw new Error(`Invalid quantity: ${item.quantity}`);
+      }
+    }
 
-    // ✅ Use findByIdAndUpdate with $set to ensure changes persist
-    await Customers.findByIdAndUpdate(
-      userId,
-      { $set: { cart: customer.cart } },
-      { new: true }
-    );
+    // Fetch user from database
+    const user = await Customers.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
 
-    return { status: true, data: customer.cart };
+    // Update cart
+    user.cart = items;
+    await user.save();
+
+    return { status: true, message: "Cart updated successfully" };
   } catch (error) {
     console.error("Error in addToCart:", error);
-    return { status: false, error };
+    return { status: false, error: error.message };
   }
-};
+}
 
 export const testCreateCustomer = async () => {
   const result = await createCustomer({ email: "xxxdfhdskuh@gmail.com" });
