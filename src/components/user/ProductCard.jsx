@@ -4,10 +4,9 @@ import React, { Suspense } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
 
 export default function ProductCard({ product, user }) {
-  const response = createCustomer({
+  const dummyUser = {
     email: "aswinss0018@gmail.com",
-  });
-  console.log(response, "response");
+  };
 
   const handleAddToCart = async (product) => {
     const productId = product?._id; // Ensure this is defined
@@ -20,9 +19,7 @@ export default function ProductCard({ product, user }) {
       });
       return;
     }
-    const responseCustomer = await createCustomer({
-      email: "aswinss0018@gmail.com",
-    });
+    const responseCustomer = await createCustomer(dummyUser);
 
     try {
       const response = await addToCart(

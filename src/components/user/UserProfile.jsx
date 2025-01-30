@@ -1,5 +1,5 @@
 "use client";
-import { createCustomer } from "../../lib/actions/customer.actions";
+
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
