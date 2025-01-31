@@ -1,52 +1,37 @@
-import { createCustomer } from "../../lib/actions/customer.actions";
+"use client"; // ✅ This is a client component
+
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React, { Suspense, useTransition } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
+import { handleAddToCart } from "../../lib/actions/customer.actions"; // ✅ Import from server actions
 
 export default function ProductCard({ product, user }) {
-  const dummyUser = {
-    email: "aswinss0018@gmail.com",
+  console.log(product._id, "product"); // Debugging log
+
+  const [isPending, startTransition] = useTransition(); // ✅ To avoid blocking UI
+
+  const handleClick = () => {
+    startTransition(async () => {
+      try {
+        await handleAddToCart(user, product._id);
+      } catch (error) {
+        console.error("Failed to add to cart:", error);
+      }
+    });
   };
 
-  const handleAddToCart = async (product) => {
-    const productId = product?._id; // Ensure this is defined
-    const quantity = 1; // Ensure this is a valid number
-
-    if (!productId || isNaN(quantity) || quantity <= 0) {
-      console.error("Invalid productId or quantity:", {
-        productId: product?._id,
-        quantity,
-      });
-      return;
-    }
-    const responseCustomer = await createCustomer(dummyUser);
-
-    try {
-      const response = await addToCart(
-        [{ productId, quantity }],
-        responseCustomer?.data?._id
-      );
-      console.log(response, "response");
-      console.log("Add to Cart Response:", response);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-    }
-  };
   // Function to generate stars based on rating
   const renderStars = (rating) => {
-    const fullStars = Math.floor(rating); // Full stars
-    const hasHalfStar = rating % 1 >= 0.5; // Check if there's a half star
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); // Remaining stars
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
       <div className="flex items-center space-x-1">
-        {/* Full Stars */}
         {[...Array(fullStars)].map((_, index) => (
           <FaStar key={`full-${index}`} className="text-yellow-500" />
         ))}
-        {/* Half Star */}
         {hasHalfStar && <FaStarHalfAlt className="text-yellow-500" />}
-        {/* Empty Stars */}
         {[...Array(emptyStars)].map((_, index) => (
           <FaRegStar key={`empty-${index}`} className="text-gray-400" />
         ))}
@@ -55,8 +40,8 @@ export default function ProductCard({ product, user }) {
   };
 
   return (
-    <div className="border-2 border-gray-400  md:h-[500px] md:w-[320px] p-4 rounded-md flex flex-col justify-around items-center">
-      <div className="relative md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] w-[300px]  h-[300px] object-cover shadow-xl rounded-md overflow-hidden">
+    <div className="border-2 border-gray-400 md:h-[500px] md:w-[320px] p-4 rounded-md flex flex-col justify-around items-center">
+      <div className="relative md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] w-[300px] h-[300px] object-cover shadow-xl rounded-md overflow-hidden">
         <Suspense fallback={<div>Loading...</div>}>
           <Image
             fill
@@ -69,7 +54,6 @@ export default function ProductCard({ product, user }) {
       <div className="w-full">
         <p>{product.category}</p>
         <p>{product.name}</p>
-
         {renderStars(product.rating)}
       </div>
       <div className="w-full flex justify-between pr-8 text-xl cursor-pointer">
@@ -82,8 +66,8 @@ export default function ProductCard({ product, user }) {
 
         <FaCartPlus
           size={34}
-          onClick={handleAddToCart}
-          color="#8a8a8a"
+          onClick={handleClick} // ✅ Calls the server action correctly
+          color={isPending ? "gray" : "#8a8a8a"} // 🔄 Indicates loading state
           className="mb-6"
         />
       </div>

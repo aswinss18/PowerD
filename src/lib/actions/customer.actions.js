@@ -19,6 +19,16 @@ export const createCustomer = async (user) => {
     }
 
     const newUser = await Customers.create({ email: user?.email });
+
+    if (newUser) {
+      console.log("New user created:", newUser); // Add this
+      return {
+        status: true,
+        message: "User created.",
+        data: newUser,
+      };
+    }
+
     console.log("User created:", newUser); // Add this
 
     return { status: true, message: "User created." };
@@ -71,3 +81,25 @@ export const testCreateCustomer = async () => {
   const result = await createCustomer({ email: "xxxdfhdskuh@gmail.com" });
   console.log(result);
 };
+
+export async function handleAddToCart(user, productId) {
+  if (!user) {
+    console.error("User not found. Cannot create customer.");
+    return;
+  }
+
+  const responseCustomer = await createCustomer(user);
+  console.log("Customer response:", responseCustomer);
+
+  try {
+    const response = await addToCart(
+      [{ productId, quantity: 1 }],
+      responseCustomer?.data?._id
+    );
+    console.log("Add to Cart Response:", response);
+    return response; // ✅ Return success/failure for UI updates
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    throw error; // ✅ Proper error handling
+  }
+}

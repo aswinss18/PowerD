@@ -4,7 +4,6 @@ import React from "react";
 import Logo from "../common/Logo";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
-import { createCustomer } from "../../lib/actions/customer.actions";
 import LoginButton from "./LoginButton";
 
 export default function Navbar() {
