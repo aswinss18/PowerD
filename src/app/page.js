@@ -9,8 +9,6 @@ export default function Home() {
   const session = useSession();
   const router = useRouter();
 
-  console.log(session.data?.user, "user1");
-
   return (
     <div>
       <HeroSection />

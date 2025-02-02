@@ -62,3 +62,28 @@ export const deleteProduct = async (id, imgKey) => {
     return { status: false, error };
   }
 };
+
+export const getProductById = async (productId) => {
+  try {
+    await connectToDatabase();
+
+    const product = await Products.findById(productId).lean();
+
+    if (!product) {
+      return { status: false, error: "Product not found" };
+    }
+
+    return {
+      status: true,
+      data: {
+        ...product,
+        _id: product._id.toString(),
+        createdAt: product.createdAt?.toISOString(),
+        updatedAt: product.updatedAt?.toISOString(),
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return { status: false, error: error.message };
+  }
+};

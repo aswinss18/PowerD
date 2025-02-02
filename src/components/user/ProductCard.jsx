@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { Suspense, useTransition } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
-import { handleAddToCart } from "../../lib/actions/customer.actions"; // ✅ Import from server actions
+// ✅ Import from server actions
 
 export default function ProductCard({ product, user }) {
   console.log(product._id, "product"); // Debugging log
@@ -13,7 +13,6 @@ export default function ProductCard({ product, user }) {
   const handleClick = () => {
     startTransition(async () => {
       try {
-        await handleAddToCart(user, product._id);
       } catch (error) {
         console.error("Failed to add to cart:", error);
       }

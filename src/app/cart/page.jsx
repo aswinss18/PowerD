@@ -1,10 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "../../components/user/Cart";
 import OrderHistory from "../../components/user/OrderHistory";
 
+import { useSession } from "next-auth/react";
+
 export default function Page() {
-  const [showCart, setShowCart] = useState(true); // State to toggle between Cart and OrderHistory
+  const [showCart, setShowCart] = useState(true);
+  const session = useSession(); // State to toggle between Cart and OrderHistory
 
   const toggleView = () => {
     setShowCart((prevState) => !prevState); // Toggle between true (Cart) and false (OrderHistory)

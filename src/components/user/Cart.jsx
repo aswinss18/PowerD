@@ -1,11 +1,34 @@
-import { addToCart } from "../../lib/actions/customer.actions";
-import CartItem from "./CartItem";
+"use client";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import CartItemWrapper from "./CartItemWrapper";
 
 export default function Cart() {
-  const dummycart = [
-    { id: 1, name: "Item 1", price: 10 },
-    { id: 2, name: "Item 2", price: 20 },
-  ];
+  const [cart, setCart] = useState([]);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchData();
+    }
+  }, [status]);
+
+  const fetchData = async () => {
+    try {
+      // Debugging session data
+      if (!session?.user?.email) return; // Avoid API call if session is missing
+
+      const { data } = await axios.post("http://localhost:3000/api/user", {
+        email: session.user.email,
+      });
+
+      setCart(data?.user?.cart);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    }
+  };
 
   // const handleRemove = (id) => {
   //   setCart(cart.filter((item) => item.id !== id));
@@ -18,40 +41,12 @@ export default function Cart() {
   return (
     <div className="max-w-lg py-4 ">
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
-      {dummycart.length === 0 ? (
+      {cart.length === 0 ? (
         <p className="text-gray-500">Your cart is empty.</p>
       ) : (
-        dummycart.map((item) => <CartItem key={item.id} item={item} />)
+        cart.map((item) => <CartItemWrapper key={item.productId} item={item} />)
       )}
       <div className="mt-4 flex justify-between items-center">
-        <p
-          onClick={async () => {
-            const productId = "6798e3dce96330e2b0f4342e"; // Ensure this is defined
-            const quantity = 8; // Ensure this is a valid number
-
-            if (!productId || isNaN(quantity) || quantity <= 0) {
-              console.error("Invalid productId or quantity:", {
-                productId,
-                quantity,
-              });
-              return;
-            }
-
-            try {
-              const response = await addToCart(
-                [{ productId, quantity }],
-                "6798e3679f752a58e69f3b48"
-              );
-              console.log("Add to Cart Response:", response);
-            } catch (error) {
-              console.error("Error adding to cart:", error);
-            }
-          }}
-          className="bg-red-500 cursor-pointer"
-        >
-          Add
-        </p>
-
         <h3 className="text-xl font-semibold">Total: </h3>
         <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
           Checkout

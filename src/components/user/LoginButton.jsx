@@ -5,7 +5,6 @@ import {
 import React from "react";
 
 export default function LoginButton({ handleSignIn, data }) {
-  console.log("data", data);
   const customerLogin = async () => {
     await handleSignIn();
     // Now call createCustomer
