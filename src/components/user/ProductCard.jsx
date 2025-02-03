@@ -1,18 +1,31 @@
 "use client"; // ✅ This is a client component
 
+import axios from "axios";
 import Image from "next/image";
 import React, { Suspense, useTransition } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaCartPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 // ✅ Import from server actions
 
 export default function ProductCard({ product, user }) {
-  console.log(product._id, "product"); // Debugging log
+  // Debugging log
 
   const [isPending, startTransition] = useTransition(); // ✅ To avoid blocking UI
 
   const handleClick = () => {
     startTransition(async () => {
       try {
+        const response = await axios.post(
+          "http://localhost:3000/api/addToCart",
+          {
+            email: user.email,
+            productId: product._id,
+          }
+        );
+
+        response?.data?.status === true
+          ? toast.success("1 Item added to cart.")
+          : toast.error("Failed to add to cart.");
       } catch (error) {
         console.error("Failed to add to cart:", error);
       }
@@ -65,7 +78,7 @@ export default function ProductCard({ product, user }) {
 
         <FaCartPlus
           size={34}
-          onClick={handleClick} // ✅ Calls the server action correctly
+          onClick={() => handleClick(product._id)} // ✅ Calls the server action correctly
           color={isPending ? "gray" : "#8a8a8a"} // 🔄 Indicates loading state
           className="mb-6"
         />
