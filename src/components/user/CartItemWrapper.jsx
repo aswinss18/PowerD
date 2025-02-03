@@ -14,7 +14,7 @@ export default function CartItemWrapper({ item }) {
         const response = await axios.post("http://localhost:3000/api/product", {
           productId: item.productId,
         });
-        console.log(response?.data?.data);
+
         setProductDetail(response?.data?.data || null);
       } catch (error) {
         console.error("Error fetching product details:", error);
