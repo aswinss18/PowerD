@@ -68,3 +68,59 @@ export async function POST(req) {
     );
   }
 }
+
+export async function DELETE(req) {
+  try {
+    const { email, productId } = await req.json();
+
+    if (!email || !productId) {
+      return NextResponse.json(
+        { status: false, error: "Email and Product ID are required" },
+        { status: 400 }
+      );
+    }
+
+    await connectToDatabase();
+
+    // Find the customer by email
+    let customer = await Customers.findOne({ email });
+    if (!customer) {
+      return NextResponse.json(
+        { status: false, error: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    // Check if the product exists in the cart
+    const cartItemIndex = customer.cart.findIndex((item) =>
+      item.productId.equals(productId)
+    );
+
+    if (cartItemIndex === -1) {
+      return NextResponse.json(
+        { status: false, error: "Product not found in cart" },
+        { status: 404 }
+      );
+    }
+
+    // Remove the product from the cart
+    customer.cart.splice(cartItemIndex, 1);
+
+    await customer.save();
+
+    return NextResponse.json(
+      {
+        status: true,
+        message: "Product removed from cart successfully",
+        cart: customer.cart,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error removing product from cart:", error);
+    return NextResponse.json(
+      { status: false, error: error.message },
+      { status: 500 }
+    );
+  }
+}

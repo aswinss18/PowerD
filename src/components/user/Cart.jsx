@@ -30,9 +30,9 @@ export default function Cart() {
     }
   };
 
-  // const handleRemove = (id) => {
-  //   setCart(cart.filter((item) => item.id !== id));
-  // };
+  const handleRemove = (id) => {
+    setCart(cart.filter((item) => item.id !== id));
+  };
 
   // const getTotalPrice = () => {
   //   return cart.reduce((total, item) => total + item.price, 0);
